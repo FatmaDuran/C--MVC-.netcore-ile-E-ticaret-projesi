@@ -1,0 +1,200 @@
+﻿@model Cart
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <section id="content">
+
+        <!-- shop section start -->
+        <section id="cart" class="container">
+
+            <!-- row start -->
+            <div class="row">
+
+                <!-- cart contents start -->
+                <div class="col-md-8">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Ürün</th>
+                                    <th>Fiyat</th>
+                                    <th class="qtycolumn">Adet</th>
+                                    <th>Toplam</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var item in Model.Products)
+                                {
+                                    <tr>
+                                        <td><img alt="" class="img-responsive product-thumb" src="~/images/products/tn/@item.Product.Image"></td>
+
+                                        <td><a href="#">@item.Product.ProductName</a></td>
+
+                                        <td>@item.Product.Price.ToString("c")</td>
+
+                                        <td>
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" value="1" min="1" step="1">
+                                            </div>
+                                        </td>
+
+                                        <td>@((item.Quantity * item.Product.Price).ToString("c"))</td>
+
+                                        <td>
+
+                                            <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
+                                                <input type="hidden" name="ProductId" value="@item.Product.ProductId" />
+
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    Sil
+                                                    <i class="fa fa-times fa-fw"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+
+                                    </tr>
+                                }
+
+                                <!--Elİle-->
+                                <tr>
+                                    <td><img alt="" class="img-responsive product-thumb" src="~/images/products/tn/indir3.jpg"></td>
+
+                                    <td><a href="#">Bilgisayar</a></td>
+
+                                    <td>3500 ₺</td>
+
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" value="1" min="1" step="1">
+                                        </div>
+                                    </td>
+
+                                    <td>3500 ₺</td>
+
+                                    <td>
+
+                                        <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
+                                            <input type="hidden" name="ProductId" value="15" />
+
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                Sil
+                                                <i class="fa fa-times fa-fw"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td><img alt="" class="img-responsive product-thumb" src="~/images/products/tn/images.jpg"></td>
+
+                                    <td><a href="#">Halı</a></td>
+
+                                    <td>120 ₺</td>
+
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" value="1" min="1" step="1">
+                                        </div>
+                                    </td>
+
+                                    <td>120 ₺</td>
+
+                                    <td>
+
+                                        <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
+                                            <input type="hidden" name="ProductId" value="14" />
+
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                Sil
+                                                <i class="fa fa-times fa-fw"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <div class="text-right">
+                        <a href="#" class="btn btn-default"><i class="fa fa-refresh fa-fw"></i> Siparişi Güncelle</a>
+                    </div>
+
+                </div>
+                <!-- cart contents end -->
+                <!-- cart total start -->
+                @*<div class="col-md-4">
+                    <div class="text-left">
+                        <h4>SEPET <b>TOPLAM</b></h4>
+                    </div>
+
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Sepet Ara Toplamı</th>
+                                <td>@Model.TotalPrice().ToString("c")</td>
+                            </tr>
+                            <tr>
+                                <th>Kargo</th>
+                                <td>Free</td>
+                            </tr>
+                            <tr>
+                                <th>Sipariş Toplamı</th>
+                                <td class="ordertotal">@Model.TotalPrice().ToString("c")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="text-right">
+                        <a href="#" class="btn btn-primary btn-lg">Siparişi Onayla <i class="fa fa-arrow-circle-right fa-fw"></i></a>
+                    </div>
+
+                </div>*@
+                <!--DİNAMİK CART TOTAL BİTİŞ-->
+                <!--ElleEKLENENTOPLAM KISMI-->
+                <div class="col-md-4">
+                    <div class="text-left">
+                        <h4>SEPET <b>TOPLAM</b></h4>
+                    </div>
+
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Sepet Ara Toplamı</th>
+                                <td>3620 ₺ </td>
+                            </tr>
+                            <tr>
+                                <th>Kargo</th>
+                                <td>Bedava</td>
+                            </tr>
+                            <tr>
+                                <th>Sipariş Toplamı</th>
+                                <td class="ordertotal"> 3620 ₺</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="text-right">
+                        <a href="#" class="btn btn-primary btn-lg">Siparişi Onayla <i class="fa fa-arrow-circle-right fa-fw"></i></a>
+                    </div>
+
+                </div>
+                <!--ElleEKLENENTOPLAM KISMI BİTİŞ-->
+                <!-- cart total end -->
+
+
+            </div>
+            <!-- row end -->
+
+        </section>
+        <!-- shop section end -->
+
+    </section>
+
